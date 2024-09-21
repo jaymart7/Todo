@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             TodoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainApp(
+                    MyList(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -61,7 +61,10 @@ fun MainApp(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
     ) {
-        Text("Hello!")
+        Text(
+            text = "Hello!",
+            modifier = Modifier.padding(16.dp)
+        )
 
         TextField(
             value = userInput,
