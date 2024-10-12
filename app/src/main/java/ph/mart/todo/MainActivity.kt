@@ -28,14 +28,10 @@ import ph.mart.todo.ui.theme.TodoTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         setContent {
             TodoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyList(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                ThirdLesson()
             }
         }
     }

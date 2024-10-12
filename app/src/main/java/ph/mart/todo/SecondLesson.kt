@@ -10,13 +10,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,13 +24,35 @@ import ph.mart.todo.data.Fruit
 import ph.mart.todo.data.fruits
 import ph.mart.todo.ui.theme.TodoTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FruitListScreen(
+    onClick: (Fruit) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+                title = { Text("Fruit List") }
+            )
+        }
+    ) { paddingValues ->
+        MyList(
+            onClick = onClick,
+            modifier = Modifier.padding(paddingValues)
+        )
+    }
+}
+
 @Composable
 fun MyList(
+    onClick: (Fruit) -> Unit,
     modifier: Modifier = Modifier
 ) {
 //    val fruits = listOf("Apple", "Banana", "Orange")
 
-    val moreFruits = mutableListOf<String>()
+    /*val moreFruits = mutableListOf<String>()
     repeat(200) {
         moreFruits.add("Fruit $it")
     }
@@ -46,17 +66,14 @@ fun MyList(
             onConfirm = { isDialogShown = false },
             text = selectedFruit?.name ?: ""
         )
-    }
+    }*/
 
     LazyColumn(
         modifier = modifier.fillMaxWidth()
     ) {
         items(fruits) { fruit ->
             FruitItem(
-                onClick = {
-                    selectedFruit = it
-                    isDialogShown = true
-                },
+                onClick = onClick,
                 fruit = fruit
             )
         }
@@ -102,7 +119,8 @@ fun MyPreview() {
     TodoTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             MyList(
-                modifier = Modifier.padding(innerPadding)
+                modifier = Modifier.padding(innerPadding),
+                onClick = { }
             )
         }
     }
